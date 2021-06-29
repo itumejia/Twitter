@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -81,19 +82,31 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timeline,menu);
-        MenuItem logOut = menu.findItem(R.id.menu_log_out);
-        logOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                //Log out from the client
-                client.clearAccessToken();
-                //Go back to login screen
-                finish();
+        return true;
+    }
 
-                return false;
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            //Logout menu item selected
+            case R.id.menu_log_out:
+                logoutAccount();
+                return true;
 
-        return super.onCreateOptionsMenu(menu);
+            case R.id.menu_compose:
+                Toast.makeText(this, "Compose!", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private void logoutAccount() {
+        //Log out from the client
+        client.clearAccessToken();
+        //Go back to login screen
+        finish();
     }
 }

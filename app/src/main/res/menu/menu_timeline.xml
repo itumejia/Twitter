@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.codepath.apps.restclienttemplate.TimelineActivity">
     <item
@@ -7,5 +8,11 @@
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:orderInCategory="5"
         android:title="Log out" />
+    <item
+        android:id="@+id/menu_compose"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:orderInCategory="6"
+        android:title="Compose"
+        app:showAsAction="always" />
 
 </menu>

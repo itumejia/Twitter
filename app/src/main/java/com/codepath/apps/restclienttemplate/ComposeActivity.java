@@ -24,7 +24,7 @@ public class ComposeActivity extends AppCompatActivity {
 
     private EditText etCompose;
     private Button btnTweet;
-    private static  final int MAX_TWEET_LENGHT = 140;
+    private static final int MAX_TWEET_LENGHT = 140;
     private TwitterClient client;
 
     @Override
@@ -49,8 +49,6 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Your tweet is too long", Toast.LENGTH_LONG).show();
                     return;
                 }
-                //Call the API to really Tweet
-                Toast.makeText(ComposeActivity.this, "Tweeting", Toast.LENGTH_LONG).show();
                 //Make API call to post new tweet
                 callApiPostTweet(tweetContent);
             }

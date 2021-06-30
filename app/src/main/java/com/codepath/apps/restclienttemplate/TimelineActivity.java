@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,10 +31,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     private static final String TAG = "AppCompatActivity";
     private static final int REQUEST_CODE = 20;
-    TwitterClient client;
-    RecyclerView recyclerView;
-    List<Tweet> tweets;
-    TweetsAdapter adapter;
+    private TwitterClient client;
+    private RecyclerView recyclerView;
+    private List<Tweet> tweets;
+    private TweetsAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,21 @@ public class TimelineActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         populateHomeTimeline();
+
+        //Swipe container configuration
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        //Set up refresh listener
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync();
+            }
+        });
+        //Setup refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
     }
 
@@ -127,5 +144,27 @@ public class TimelineActivity extends AppCompatActivity {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void fetchTimelineAsync(){
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                tweets.clear();
+                try {
+                    tweets.addAll(Tweet.fromJsonArray(json.jsonArray));
+                    adapter.notifyDataSetChanged();
+                    swipeContainer.setRefreshing(false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Toast.makeText(TimelineActivity.this, "Could not refresh timeline", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

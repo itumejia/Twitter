@@ -5,5 +5,9 @@
     <string name="login_label">Log in</string>
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
+    <string name="hint_compose">What\'s on your mind?</string>
+    <string name="btn_compose">TWEET</string>
+    <string name="log_out_item">Log out</string>
+    <string name="compose_item">Compose</string>
 
 </resources>

@@ -7,12 +7,12 @@
         android:id="@+id/menu_log_out"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:orderInCategory="5"
-        android:title="Log out" />
+        android:title="@string/log_out_item" />
     <item
         android:id="@+id/menu_compose"
         android:icon="@android:drawable/ic_menu_edit"
         android:orderInCategory="6"
-        android:title="Compose"
+        android:title="@string/compose_item"
         app:showAsAction="always" />
 
 </menu>

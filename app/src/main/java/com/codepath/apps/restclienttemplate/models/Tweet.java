@@ -22,6 +22,7 @@ public class Tweet {
     private String body;
     private String createdAt;
     private User user;
+    private String mediaUrl = "";
 
     public String getBody() {
         return body;
@@ -31,11 +32,19 @@ public class Tweet {
         return user;
     }
 
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        if (entities.has("media")){
+            tweet.mediaUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url_https");
+        }
 
         return tweet;
 

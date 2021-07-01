@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/twitter_icon" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Twitter"
+            android:textColor="#F6F5F5"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ivDetailsProfileImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ivDetailsProfileImage"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:text="itumejia2905"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsScreenName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDetailsName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toEndOf="@+id/ivDetailsProfileImage"
+        tools:text="\@itumejia" />
+
+    <TextView
+        android:id="@+id/tvDetailsRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:lineSpacingExtra="10sp"
+        tools:text="a minute ago"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:id="@+id/tvDetailsBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivDetailsProfileImage"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="16sp"
+        tools:text="I woke up this morning and I just wanted some more sleep" />
+
+    <ImageView
+        android:id="@+id/ivDetailsMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDetailsBody"
+        android:layout_marginTop="10dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivDetailsMedia"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <CheckBox
+            android:id="@+id/cbDetailsRt"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:button="@drawable/selector_rt"
+            android:checked="false"
+            android:textSize="8sp"
+            android:layout_weight="1"/>
+
+        <CheckBox
+            android:id="@+id/cbDetailsLike"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/cbDetailsRt"
+            android:button="@drawable/selector_hearth"
+            android:checked="false"
+            android:textSize="8sp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

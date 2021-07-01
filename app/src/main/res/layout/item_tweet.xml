@@ -34,7 +34,7 @@
         tools:text="This is a tweet :0" />
 
     <TextView
-        android:id="@+id/tvRelativeTime"
+        android:id="@+id/tvDetailsRelativeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -46,7 +46,7 @@
         tools:text="a minute ago" />
 
     <ImageView
-        android:id="@+id/ivMedia"
+        android:id="@+id/ivDetailsMedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvBody"

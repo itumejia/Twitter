@@ -45,6 +45,7 @@ public class TimelineActivity extends AppCompatActivity {
         //Set the toolbar as the action bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         //Get new Twitter client
         client = TwitterApp.getRestClient(this);

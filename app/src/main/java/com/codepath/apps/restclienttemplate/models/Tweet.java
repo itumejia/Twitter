@@ -23,6 +23,10 @@ public class Tweet {
     private String createdAt;
     private User user;
     private String mediaUrl = "";
+    private int retweet_count;
+    private int favorite_count;
+    private boolean favorited;
+    private boolean retweeted;
 
     public String getBody() {
         return body;
@@ -36,11 +40,32 @@ public class Tweet {
         return mediaUrl;
     }
 
+    public int getRetweet_count() {
+        return retweet_count;
+    }
+
+    public int getFavorite_count() {
+        return favorite_count;
+    }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public boolean isRetweeted() {
+        return retweeted;
+    }
+
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.retweet_count = jsonObject.getInt("retweet_count");
+        tweet.favorite_count = jsonObject.getInt("favorite_count");
+        tweet.favorited = jsonObject.getBoolean("favorited");
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
+
         JSONObject entities = jsonObject.getJSONObject("entities");
         if (entities.has("media")){
             tweet.mediaUrl = entities.getJSONArray("media").getJSONObject(0).getString("media_url_https");

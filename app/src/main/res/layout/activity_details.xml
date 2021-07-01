@@ -111,15 +111,34 @@
             android:layout_height="1dp"
             android:layout_weight="1"/>
 
-        <CheckBox
-            android:id="@+id/cbDetailsRt"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_centerHorizontal="true"
-            android:button="@drawable/selector_rt"
-            android:checked="false"
-            android:textSize="8sp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <CheckBox
+                android:id="@+id/cbDetailsRt"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:button="@drawable/selector_rt"
+                android:checked="false"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tvDetailsRtCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                tools:text="125" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <CheckBox
             android:id="@+id/cbDetailsLike"
@@ -128,8 +147,18 @@
             android:layout_toEndOf="@+id/cbDetailsRt"
             android:button="@drawable/selector_hearth"
             android:checked="false"
-            android:textSize="8sp"
-            android:layout_weight="1"/>
+            android:textSize="8sp"/>
+
+        <TextView
+            android:id="@+id/tvDetailsLikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            tools:text="840" />
+
+
+    </LinearLayout>
 
     </LinearLayout>
 

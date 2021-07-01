@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +23,11 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvDetailsScreenName;
     private TextView tvDetailsBody;
     private ImageView ivDetailsMedia;
-    private Button cbDetailsLike;
+    private CheckBox cbDetailsLike;
+    private CheckBox cbDetailsRt;
+    private TextView tvDetailsRtCount;
+    private TextView tvDetailsLikeCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,9 @@ public class DetailsActivity extends AppCompatActivity {
         tvDetailsBody = findViewById(R.id.tvDetailsBody);
         ivDetailsMedia = findViewById(R.id.ivDetailsMedia);
         cbDetailsLike = findViewById(R.id.cbDetailsLike);
-
+        cbDetailsRt = findViewById(R.id.cbDetailsRt);
+        tvDetailsRtCount = findViewById(R.id.tvDetailsRtCount);
+        tvDetailsLikeCount = findViewById(R.id.tvDetailsLikeCount);
         bindTweetToScreen(tweet);
     }
 
@@ -49,6 +57,8 @@ public class DetailsActivity extends AppCompatActivity {
         if(!tweet.getMediaUrl().isEmpty()){
             Glide.with(this).load(tweet.getMediaUrl()).into(ivDetailsMedia);
         }
+        tvDetailsLikeCount.setText(String.valueOf(tweet.getFavorite_count()));
+        tvDetailsRtCount.setText(String.valueOf(tweet.getRetweet_count()));
 
     }
 }

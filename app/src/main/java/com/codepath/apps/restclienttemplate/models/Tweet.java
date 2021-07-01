@@ -19,6 +19,7 @@ public class Tweet {
     public Tweet() {
     }
 
+    private String id;
     private String body;
     private String createdAt;
     private User user;
@@ -48,6 +49,10 @@ public class Tweet {
         return favorite_count;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public boolean isFavorited() {
         return favorited;
     }
@@ -58,6 +63,7 @@ public class Tweet {
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
+        tweet.id = jsonObject.getString("id_str");
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
@@ -123,5 +129,25 @@ public class Tweet {
         }
 
         return "";
+    }
+
+    public void retweeted() {
+        this.retweeted = true;
+        this.retweet_count += 1;
+    }
+
+    public void unretweeted() {
+        this.retweeted = false;
+        this.retweet_count -= 1;
+    }
+
+    public void liked() {
+        this.favorited = true;
+        this.favorite_count += 1;
+    }
+
+    public void disliked() {
+        this.favorited = false;
+        this.favorite_count -= 1;
     }
 }

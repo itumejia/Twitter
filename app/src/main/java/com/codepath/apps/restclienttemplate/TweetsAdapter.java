@@ -21,8 +21,9 @@ import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
-    Context context;
-    List<Tweet> tweets;
+    private static final int REQUEST_CODE_FROM_DETAILS_ACTIVITY = 21; //Request code to go back to Timeline Activity after going to a Details Activity
+    private Context context;
+    private List<Tweet> tweets;
 
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
@@ -98,8 +99,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Tweet tweet = tweets.get(getAdapterPosition());
             Intent intent = new Intent(context, DetailsActivity.class);
             intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-            context.startActivity(intent);
-
+            intent.putExtra("Position", getAdapterPosition());
+            ((TimelineActivity) context).startActivityForResult(intent, REQUEST_CODE_FROM_DETAILS_ACTIVITY);
         }
     }
 }

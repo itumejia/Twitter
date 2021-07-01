@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private TwitterClient client;
 
+    private int timelinePosition;
     private Tweet tweet;
     private ImageView ivDetailsProfileImage;
     private TextView tvDetailsRelativeTime;
@@ -46,6 +48,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
 
+        timelinePosition = getIntent().getIntExtra("Position", -1);
         tweet = Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
         ivDetailsProfileImage = findViewById(R.id.ivDetailsProfileImage);
         tvDetailsRelativeTime = findViewById(R.id.tvDetailsRelativeTime);
@@ -188,5 +191,15 @@ public class DetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Make intent to go back to Timeline with updated info of tweet
+        Intent intent = new Intent();
+        intent.putExtra("Tweet", Parcels.wrap(tweet));
+        intent.putExtra("position", timelinePosition);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

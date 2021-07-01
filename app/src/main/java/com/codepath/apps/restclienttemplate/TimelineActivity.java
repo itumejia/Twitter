@@ -9,7 +9,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,8 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
 
     private static final String TAG = "AppCompatActivity";
-    private static final int REQUEST_CODE = 20;
+    private static final int REQUEST_CODE_FROM_COMPOSE_TWEET = 20;
+    private static final int REQUEST_CODE_FROM_DETAILS_ACTIVITY = 21;
     private TwitterClient client;
     private RecyclerView recyclerView;
     private List<Tweet> tweets;
@@ -118,7 +118,7 @@ public class TimelineActivity extends AppCompatActivity {
 
             case R.id.menu_compose:
                 Intent intent = new Intent(this, ComposeActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivityForResult(intent, REQUEST_CODE_FROM_COMPOSE_TWEET);
                 return true;
 
             default:
@@ -136,7 +136,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+        //Coming back from composing a tweet
+        if (requestCode == REQUEST_CODE_FROM_COMPOSE_TWEET && resultCode == RESULT_OK){
             //Update RV with new tweet
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("Tweet"));
             tweets.add(0, tweet);
@@ -144,9 +145,17 @@ public class TimelineActivity extends AppCompatActivity {
             recyclerView.smoothScrollToPosition(0); //Scroll to the top to see the tweet
 
         }
+        else if (requestCode == REQUEST_CODE_FROM_DETAILS_ACTIVITY && resultCode == RESULT_OK){
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("Tweet"));
+            int timelinePosition = data.getIntExtra("position", -1);
+            tweets.set(timelinePosition,tweet);
+            adapter.notifyItemChanged(timelinePosition);
+            recyclerView.scrollToPosition(timelinePosition);
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //Update timeline with new tweets
     public void fetchTimelineAsync(){
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override

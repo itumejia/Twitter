@@ -4,22 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.parceler.Parcels;
 
-import okhttp3.Headers;
+
+import static com.codepath.apps.restclienttemplate.TweetsOperations.dislike;
+import static com.codepath.apps.restclienttemplate.TweetsOperations.like;
+import static com.codepath.apps.restclienttemplate.TweetsOperations.retweet;
+import static com.codepath.apps.restclienttemplate.TweetsOperations.unretweet;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -66,10 +65,10 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cbDetailsRt.isChecked()){
-                    retweet();
+                    retweet(DetailsActivity.this, tweet, tvDetailsRtCount, cbDetailsRt, client);
                 }
                 else{
-                    unretweet();
+                    unretweet(DetailsActivity.this, tweet, tvDetailsRtCount, cbDetailsRt, client);
                 }
             }
         });
@@ -79,10 +78,10 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cbDetailsLike.isChecked()){
-                    like();
+                    like(DetailsActivity.this, tweet, tvDetailsLikeCount, cbDetailsLike, client);
                 }
                 else{
-                    dislike();
+                    dislike(DetailsActivity.this, tweet, tvDetailsLikeCount, cbDetailsLike, client);
                 }
             }
         });
@@ -107,91 +106,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
-    public void retweet(){
-        tweet.retweeted();
-        tvDetailsRtCount.setText(String.valueOf(tweet.getRetweet_count()));
-        //Call API to rt
-        client.retweetTweet(tweet.getId(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "Success retweet, response: " + json.toString());
-            }
 
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Toast.makeText(DetailsActivity.this, "Retweet was not possible", Toast.LENGTH_SHORT).show();
-                tweet.unretweeted();
-                tvDetailsRtCount.setText(String.valueOf(tweet.getRetweet_count()));
-                cbDetailsRt.setChecked(false);
-
-            }
-        });
-    }
-
-    public void unretweet(){
-        tweet.unretweeted();
-        tvDetailsRtCount.setText(String.valueOf(tweet.getRetweet_count()));
-        //Call API to unrt
-        client.unretweetTweet(tweet.getId(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "Success unretweet, response: " + json.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Toast.makeText(DetailsActivity.this, "Unretweet was not possible", Toast.LENGTH_SHORT).show();
-                tweet.retweeted();
-                tvDetailsRtCount.setText(String.valueOf(tweet.getRetweet_count()));
-                cbDetailsRt.setChecked(true);
-
-            }
-        });
-    }
-
-    public void like() {
-        tweet.liked();
-        tvDetailsLikeCount.setText(String.valueOf(tweet.getFavorite_count()));
-        //Call API to like
-        client.likeTweet(tweet.getId(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "Success like, response: " + json.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.e(TAG, "On failure like", throwable);
-                Toast.makeText(DetailsActivity.this, "Like was not possible", Toast.LENGTH_SHORT).show();
-                tweet.disliked();
-                tvDetailsLikeCount.setText(String.valueOf(tweet.getFavorite_count()));
-                cbDetailsLike.setChecked(false);
-
-            }
-        });
-    }
-
-    public void dislike() {
-        tweet.disliked();
-        tvDetailsLikeCount.setText(String.valueOf(tweet.getFavorite_count()));
-        //Call API to dislike
-        client.dislikeTweet(tweet.getId(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, "Success dislike, response: " + json.toString());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.e(TAG, "On failure like", throwable);
-                Toast.makeText(DetailsActivity.this, "Disike was not possible", Toast.LENGTH_SHORT).show();
-                tweet.liked();
-                tvDetailsLikeCount.setText(String.valueOf(tweet.getFavorite_count()));
-                cbDetailsLike.setChecked(true);
-
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {

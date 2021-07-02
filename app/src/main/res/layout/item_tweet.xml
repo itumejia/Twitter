@@ -34,7 +34,7 @@
         tools:text="This is a tweet :0" />
 
     <TextView
-        android:id="@+id/tvDetailsRelativeTime"
+        android:id="@+id/tvRelativeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -46,10 +46,84 @@
         tools:text="a minute ago" />
 
     <ImageView
-        android:id="@+id/ivDetailsMedia"
+        android:id="@+id/ivMedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvBody"
         android:layout_marginTop="10dp"
         tools:srcCompat="@tools:sample/avatars"/>
+
+    <LinearLayout
+        android:id="@+id/llReactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivMedia"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/cbRt"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:button="@drawable/selector_rt"
+                android:checked="false"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tvRtCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                tools:text="125" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cbLike"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@+id/cbDetailsRt"
+                android:button="@drawable/selector_hearth"
+                android:checked="false"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tvLikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                tools:text="840" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        android:layout_below="@id/llReactions"/>
 </RelativeLayout>

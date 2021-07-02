@@ -13,14 +13,24 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvScreenName"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textSize="17sp"
         android:textStyle="bold"
-        tools:text="itumejia2905" />
+        tools:text="Ituriel Mejia" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textSize="12dp"
+        tools:text="itumejia2905"
+        android:layout_below="@+id/tvName"/>
 
     <TextView
         android:id="@+id/tvBody"

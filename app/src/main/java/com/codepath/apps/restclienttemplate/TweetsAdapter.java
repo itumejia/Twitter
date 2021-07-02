@@ -60,6 +60,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivProfileImage;
+        TextView tvName;
         TextView tvScreenName;
         TextView tvBody;
         TextView tvRelativeTime;
@@ -74,6 +75,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             //Reference all the elements of the item view (other views)
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            tvName = itemView.findViewById(R.id.tvName);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
@@ -91,6 +93,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
         public void bind(Tweet tweet) {
             tvScreenName.setText(tweet.getUser().getScreenName());
+            tvName.setText(tweet.getUser().getName());
             tvBody.setText(tweet.getBody());
             Glide.with(context).load(tweet.getUser().getProfileImageURL()).into(ivProfileImage);
             tvRelativeTime.setText(tweet.getRelativeTimeAgo());

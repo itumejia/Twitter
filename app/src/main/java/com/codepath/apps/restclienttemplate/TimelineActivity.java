@@ -110,6 +110,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("nklvd", "compose");
         switch (item.getItemId()){
             //Logout menu item selected
             case R.id.menu_log_out:
@@ -117,6 +118,7 @@ public class TimelineActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_compose:
+                Log.i("nklvd", "compose");
                 Intent intent = new Intent(this, ComposeActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_FROM_COMPOSE_TWEET);
                 return true;
